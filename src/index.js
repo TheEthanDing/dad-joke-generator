@@ -15,20 +15,24 @@ class App extends React.Component {
       isFetchingJoke: false
     };
 
-    this.onTellJoke = this.onTellJoke.bind(this);
     this.onSearchChange = this.onSearchChange.bind(this);
     this.onSearchSubmit = this.onSearchSubmit.bind(this);
   }
 
-  searchJokes() {
+  searchJokes(limit = 20) {
     this.setState({ isFetchingJoke: true });
 
-    fetch(`https://icanhazdadjoke.com/search?term=${this.state.searchTerm}`, {
-      method: "GET",
-      headers: {
-        Accept: "application/json"
+    fetch(
+      `https://icanhazdadjoke.com/search?term=${
+        this.state.searchTerm
+      }&limit=${limit}`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json"
+        }
       }
-    })
+    )
       .then(response => response.json())
       .then(json => {
         const jokes = json.results;
@@ -40,10 +44,6 @@ class App extends React.Component {
       });
   }
 
-  onTellJoke() {
-    this.searchJokes();
-  }
-
   onSearchChange(event) {
     this.setState({ searchTerm: event.target.value });
   }
@@ -51,6 +51,16 @@ class App extends React.Component {
   onSearchSubmit(event) {
     event.preventDefault();
     this.searchJokes();
+  }
+
+  renderJokes() {
+    return (
+      <ul>
+        {this.state.jokes.map(item => (
+          <li key={item.id}>{item.joke}</li>
+        ))}
+      </ul>
+    );
   }
 
   render() {
@@ -64,13 +74,17 @@ class App extends React.Component {
           />
           <button>Search</button>
           <button
-            onClick={this.onTellJoke}
+            onClick={() => this.searchJokes(1)}
             disabled={this.state.isFetchingJoke}
           >
-            Tell me a joke
+            I'm Feeling Funny
           </button>
         </form>
-        <p>{this.state.jokes.toString()}</p>
+
+        {this.state.isFetchingJoke
+          ? "searching for joke..."
+          : this.renderJokes()}
+
         <p>search term: {this.state.searchTerm}</p>
       </div>
     );

@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-
+import SearchForm from "./SearchForm";
 import "./styles.css";
 
 class App extends React.Component {
@@ -66,25 +66,15 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.onSearchSubmit}>
-          <input
-            type="text"
-            placeholder="Enter search term..."
-            onChange={this.onSearchChange}
-          />
-          <button>Search</button>
-          <button
-            onClick={() => this.searchJokes(1)}
-            disabled={this.state.isFetchingJoke}
-          >
-            I'm Feeling Funny
-          </button>
-        </form>
-
-        {this.state.isFetchingJoke
+        <SearchForm
+          onFormSubmit={this.onSearchSubmit}
+          onSearchValueChange={this.onSearchChange}
+          isSearching={this.state.isFetchingJokes}
+          onSingleSearchClick={() => this.searchJokes(1)}
+        />
+        {this.state.isFetchingJokes
           ? "searching for joke..."
           : this.renderJokes()}
-
         <p>search term: {this.state.searchTerm}</p>
       </div>
     );

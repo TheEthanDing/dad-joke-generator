@@ -61,15 +61,9 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
+        <h1>Dad Joke Generator</h1>
         <SearchForm
           onFormSubmit={this.searchJokes}
-          onSearchValueChange={this.onSearchChange}
-          isSearching={this.state.isFetchingJokes}
-          onSingleSearchClick={() => this.searchJokes(1)}
-        />
-
-        <SearchForm
-          onFormSubmit={() => this.searchJokes(2)}
           onSearchValueChange={this.onSearchChange}
           isSearching={this.state.isFetchingJokes}
           onSingleSearchClick={() => this.searchJokes(1)}

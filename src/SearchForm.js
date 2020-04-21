@@ -10,7 +10,7 @@ const SearchForm = props => {
     <form onSubmit={onSubmit} className="search-form">
       <input
         type="text"
-        placeholder="Enter search term..."
+        placeholder="Enter dad joke topic..."
         onChange={event => props.onSearchValueChange(event.target.value)}
       />
       <div>

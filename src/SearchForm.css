@@ -1,3 +1,6 @@
-body {
-  background-color: yellow;
+.search-form input {
+  font-size: 2rem;
+  border: 1px solid #333;
+  background-color: #fff;
+  padding: 1rem;
 }
